@@ -14,6 +14,9 @@ class Calculator:
         self.right_value = tk.Entry(root, width=20, font=('Arial', 14))
         self.right_value.grid(row=0, column=1, padx=10, pady=5)
 
+        # Память
+        self.memory = 0
+
         # Кнопки операций
         buttons = [
             ("+", self.add),
@@ -33,6 +36,14 @@ class Calculator:
             row, col = divmod(i, 3)
             button = tk.Button(root, text=text, width=8, height=2, command=command)
             button.grid(row=row + 1, column=col, padx=5, pady=5)
+
+        # Кнопки для работы с памятью
+        memory_buttons = [
+            ("MR", self.memory_recall),
+            ("MS", self.memory_store),
+            ("MC", self.memory_clear),
+            ("M+", self.memory_add),
+        ]
 
         for i, (text, command) in enumerate(memory_buttons):
             button = tk.Button(root, text=text, width=10, height=2, command=command)
@@ -120,6 +131,28 @@ class Calculator:
         left, _ = self.get_values()
         if left is not None:
             self.display_result(operations.ceil(left))
+
+    # Работа с памятью
+    def memory_recall(self):
+        self.display_result(self.memory)
+
+    def memory_store(self):
+        try:
+            self.memory = float(self.left_value.get())
+            messagebox.showinfo("Память", f"Сохранено: {self.memory}")
+        except ValueError:
+            messagebox.showerror("Ошибка", "Введите корректное число для сохранения в память.")
+
+    def memory_clear(self):
+        self.memory = 0
+        messagebox.showinfo("Память", "Память очищена.")
+
+    def memory_add(self):
+        try:
+            self.memory += float(self.left_value.get())
+            messagebox.showinfo("Память", f"Новое значение памяти: {self.memory}")
+        except ValueError:
+            messagebox.showerror("Ошибка", "Введите корректное число для добавления в память.")
 
 if __name__ == "__main__":
     root = tk.Tk()
