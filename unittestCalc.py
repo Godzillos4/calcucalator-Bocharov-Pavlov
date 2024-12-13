@@ -37,6 +37,26 @@ class Test(unittest.TestCase):
         self.assertEqual(self.operations.power(2, 3), 8)
         self.assertEqual(self.operations.power(5, 0), 1)
         self.assertEqual(self.operations.power(0, 5), 0)
+        
+    def test_square_root(self):
+        self.assertEqual(self.operations.square_root(9), 3)
+        self.assertEqual(self.operations.square_root(0), 0)
+        with self.assertRaises(ValueError):
+            self.operations.square_root(-4)
+
+    def test_sin(self):
+        self.assertAlmostEqual(self.operations.sin(0), 0, places=5)
+
+    def test_cos(self):
+        self.assertAlmostEqual(self.operations.cos(0), 1, places=5)
+
+    def test_floor(self):
+        self.assertEqual(self.operations.floor(2.9), 2)
+        self.assertEqual(self.operations.floor(-2.9), -3)
+
+    def test_ceil(self):
+        self.assertEqual(self.operations.ceil(2.1), 3)
+        self.assertEqual(self.operations.ceil(-2.1), -2)
 
 if __name__ == "__main__":
     unittest.main()
